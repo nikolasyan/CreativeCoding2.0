@@ -1,0 +1,23 @@
+{
+  "name": "creativecoding2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolasyan/CreativeCoding2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikolasyan/CreativeCoding2.0/issues"
+  },
+  "homepage": "https://github.com/nikolasyan/CreativeCoding2.0#readme",
+  "dependencies": {
+    "canvas-sketch": "^0.7.6"
+  }
+}
