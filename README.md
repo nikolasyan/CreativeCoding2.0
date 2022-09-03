@@ -1,4 +1,4 @@
-# CreativeCoding2.0
+# Creative Coding 2.0
 
 Here are some projects I created while studying JavaScript!
 
