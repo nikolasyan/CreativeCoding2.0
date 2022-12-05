@@ -8,7 +8,7 @@ I used JavaScript, Node.Js and canvas-sketch.
 ### https://github.com/mattdesl/canvas-sketch#readme
 
 -----------------------------------------------------------------------------------------------------
-## Looking for a new wallpaper? Try this one! [View](https://nikolasyan.github.io/rectangles/):
+## Looking for a new wallpaper? Try this one! [(View)](https://nikolasyan.github.io/rectangles/):
 
 ![2022-12-05-20-03-27](https://user-images.githubusercontent.com/106313973/205762496-a31acd14-d626-4c59-9c7d-9ab3badb38d7.gif)
 
