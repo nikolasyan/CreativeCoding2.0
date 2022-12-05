@@ -9,6 +9,9 @@ I used JavaScript, Node.Js and canvas-sketch.
 
 -----------------------------------------------------------------------------------------------------
 
+## Moving and creating simple lines [(View)](https://nikolasyan.github.io/simpleLines/):
+![2022-12-05-19-57-41](https://user-images.githubusercontent.com/106313973/205761458-c5af9727-1cac-4435-acbb-581616aa364e.gif)
+
 ## Creative triangle and rectangle with random colors [(View)](https://nikolasyan.github.io/creativetriangle/):
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/106313973/188252200-d389f624-fcbc-48b3-a444-d2ddbe4745d2.gif)
