@@ -1,130 +1,75 @@
 const canvasSketch = require('canvas-sketch');
+const { math } = require('canvas-sketch-util');
 
 const settings = {
-	dimensions: [ 1080, 1080 ],
-	animate: true,
+  dimensions: [ 1080, 1080 ]
 };
 
-let elCanvas;
-let points;
-
-const sketch = ({ canvas }) => {
-	points = [
-		new Point({ x: 200, y: 540 }),
-		new Point({ x: 400, y: 700 }),
-		new Point({ x: 880, y: 540 }),
-		new Point({ x: 600, y: 700 }),
-		new Point({ x: 640, y: 900 }),
-	];
-
-	canvas.addEventListener('mousedown', onMouseDown);
-
-	elCanvas = canvas;
-
-	return ({ context, width, height }) => {
-		context.fillStyle = 'white';
-		context.fillRect(0, 0, width, height);
-
-		context.strokeStyle = '#999';
-		context.beginPath();
-		context.moveTo(points[0].x, points[0].y);
-
-		for (let i = 1; i < points.length; i++) {
-			context.lineTo(points[i].x, points[i].y);
-		}
-
-		context.stroke();
 
 
-		/*
-		context.beginPath();
-		context.moveTo(points[0].x, points[0].y);
+const sketch = ({width, height}) => {
 
-		for (let i = 1; i < points.length; i += 2) {
-			context.quadraticCurveTo(points[i + 0].x, points[i + 0].y, points[i + 1].x, points[i + 1].y);
-		}
+  const cols = 12;
+  const rows = 6;
+  const numCells = cols * rows;
 
-		context.stroke();
-		*/
+  //grid
+const gw = width * 0.8;
+const gh = height * 0.8;
+ //cell
+const cw = gw / cols;
+const ch = gh / cols;
 
-		context.beginPath();
+const mx = (width - gw) * 0.5;
+const my = (height - gh) * 0.5;
 
-		for (let i = 0; i < points.length - 1; i++) {
-			const curr = points[i + 0];
-			const next = points[i + 1];
+const points = [];
 
-			const mx = curr.x + (next.x - curr.x) * 0.5;
-			const my = curr.y + (next.y - curr.y) * 0.5;
+let x, y;
 
-			// draw midpoints
-			// context.beginPath();
-			// context.arc(mx, my, 5, 0, Math.PI * 2);
-			// context.fillStyle = 'blue';
-			// context.fill();
+for (let i = 0; i < numCells; i++) {
+  x = i % cols * cw;
+  y = Math.floor(i / cols) * ch;
+  points.push(new Point({ x, y }))
+  
+}
 
-			if (i == 0) context.moveTo(curr.x, curr.y);
-			else if (i == points.length - 2) context.quadraticCurveTo(curr.x, curr.y, next.x, next.y);
-			else context.quadraticCurveTo(curr.x, curr.y, mx, my);
-		}
+  return ({ context, width, height }) => {
+    context.fillStyle = 'black';
+    context.fillRect(0, 0, width, height);
 
-		context.lineWidth = 4;
-		context.strokeStyle = 'blue';
-		context.stroke();
+    context.save();
+    context.translate(mx, my);
+    context.translate(cw *0.5, ch *0.5)
+    context.strokeStyle = 'red';
+    context.lineWidth = 4;
+
+    for (let r = 0; r < rows; r++) {
+      const element = rows    
+    }
+
+    points.forEach(point => {
+      point.draw(context)
+    });
 
 
-		points.forEach(point => {
-			point.draw(context);
-		});
-	};
-};
-
-const onMouseDown = (e) => {
-	window.addEventListener('mousemove', onMouseMove);
-	window.addEventListener('mouseup', onMouseUp);
-
-	const x = (e.offsetX / elCanvas.offsetWidth)  * elCanvas.width;
-	const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
-
-	let hit = false;
-	points.forEach(point => {
-		point.isDragging = point.hitTest(x, y);
-		if (!hit && point.isDragging) hit = true;
-	});
-
-	if (!hit) points.push(new Point({ x, y }));
-};
-
-const onMouseMove = (e) => {
-	const x = (e.offsetX / elCanvas.offsetWidth)  * elCanvas.width;
-	const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
-
-	points.forEach(point => {
-		if (point.isDragging) {
-			point.x = x;
-			point.y = y;
-		}
-	});
-};
-
-const onMouseUp = () => {
-	window.removeEventListener('mousemove', onMouseMove);
-	window.removeEventListener('mouseup', onMouseUp);
+    context.restore();
+  };
 };
 
 canvasSketch(sketch, settings);
 
 
 class Point {
-	constructor({ x, y, control = false }) {
+	constructor({ x, y}) {
 		this.x = x;
 		this.y = y;
-		this.control = control;
 	}
 
 	draw(context) {
 		context.save();
 		context.translate(this.x, this.y);
-		context.fillStyle = this.control ? 'red' : 'black';
+		context.fillStyle = 'white';
 
 		context.beginPath();
 		context.arc(0, 0, 10, 0, Math.PI * 2);
@@ -133,11 +78,4 @@ class Point {
 		context.restore();
 	}
 
-	hitTest(x, y) {
-		const dx = this.x - x;
-		const dy = this.y - y;
-		const dd = Math.sqrt(dx * dx + dy * dy);
-
-		return dd < 20;
-	}
 }
